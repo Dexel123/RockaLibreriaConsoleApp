@@ -1,13 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package org.rocka.dao;
 
-/**
- *
- * @author informatica
- */
+import java.util.List;
+import org.rocka.model.Autores;
 public interface AutoresDAO {
+   //FIRMAS DE METODOS
+    //CRUD
+   
+  
+    boolean insertar(Autores autores);
+    List<Autores> listar();
+    Autores buscar(int id_autores);
+    boolean actualizar(Autores autores);
+    boolean eliminar(int id_autores);
+    
+    
+    
+    
     
 }
