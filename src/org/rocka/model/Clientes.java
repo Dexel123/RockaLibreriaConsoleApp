@@ -4,6 +4,7 @@ package org.rocka.model;
  *
  * @author Jafeth Pérez
  */
+//POJO Nombre, atributos 
 public class Clientes {
     /*
     create table clientes(
