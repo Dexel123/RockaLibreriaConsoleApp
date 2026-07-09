@@ -1,5 +1,7 @@
 package org.rocka.model;
 
+
+//POJO: NOMBRE ATRIBUTOS CONSTRUCTORES GETTERS Y SETTERS 
 public class Autores {
    
     /*
