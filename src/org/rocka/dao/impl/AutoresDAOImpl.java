@@ -55,7 +55,7 @@ public class AutoresDAOImpl implements AutoresDAO{
                   ));
               }
         }catch (SQLException e){
-            System.out.println("ERROR al listar Autores:" + e.getMessage());
+            System.err.println("ERROR al listar Autores:" + e.getMessage());
             
         }        
         
