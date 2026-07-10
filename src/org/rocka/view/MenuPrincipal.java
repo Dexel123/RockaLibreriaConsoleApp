@@ -1,6 +1,7 @@
 
 package org.rocka.view;
 import java.util.Scanner;
+import org.rocka.controller.EditorialController;
 
 public class MenuPrincipal {
     Scanner leer = new Scanner(System.in);
@@ -31,6 +32,7 @@ public class MenuPrincipal {
 
                     System.out.println("Cliente");
 
+                    
                     break;
 
                 case 2:
@@ -54,7 +56,9 @@ public class MenuPrincipal {
                 case 5:
 
                     System.out.println("Editoriales");
-
+                    EditorialConsoleView vistaEditoriales = new EditorialConsoleView();
+                    EditorialController controladorEditoriales = new EditorialController(vistaEditoriales);
+                    controladorEditoriales.iniciar();
                     break;
 
                 default:

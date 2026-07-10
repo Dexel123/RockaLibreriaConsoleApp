@@ -4,7 +4,7 @@ package org.rocka.model;
  *
  * @author Jafeth Pérez
  */
-public class Editoriales {
+public class Editorial {
     /*
     create table clientes(
 	cui bigint primary key,
@@ -19,7 +19,7 @@ public class Editoriales {
     String telefono_editorial;
     String direccion_editoria;
 
-    public Editoriales(String nit, String nombre_editorial, String telefono_editorial, String direccion_editoria) {
+    public Editorial(String nit, String nombre_editorial, String telefono_editorial, String direccion_editoria) {
         this.nit = nit;
         this.nombre_editorial = nombre_editorial;
         this.telefono_editorial = telefono_editorial;
@@ -62,5 +62,5 @@ public class Editoriales {
     
     //constructores: asignacion de datos, instanciar e iniciar objetos
     // vacio
-    public Editoriales() {
+    public Editorial() {
     }}

@@ -9,10 +9,10 @@ package org.rocka.view;
  *
  * @author informatica
  */
-import org.rocka.model.Editoriales;
+import org.rocka.model.Editorial;
 import java.util.Scanner;
 import java.util.List;
-public class EditorialesConsoleView {
+public class EditorialConsoleView {
     private final Scanner leer = new Scanner(System.in);
     
     public int mostrarMenu(){
@@ -50,21 +50,21 @@ public class EditorialesConsoleView {
         return leer.nextLine();
     }
     
-    public void mostrarEditorial(Editoriales editorial){
+    public void mostrarEditorial(Editorial editorial){
         System.out.println("=====Datos Editoriales=====");
-        System.out.println("NIT" + editorial.getNit());
-        System.out.println("Nombre" + editorial.getNombre_editorial());
-        System.out.println("Telefono" + editorial.getTelefono_editorial());
-        System.out.println("Direccion" + editorial.getDireccion_editoria());
+        System.out.println("NIT: " + editorial.getNit());
+        System.out.println("Nombre: " + editorial.getNombre_editorial());
+        System.out.println("Telefono: " + editorial.getTelefono_editorial());
+        System.out.println("Direccion: " + editorial.getDireccion_editoria());
     
     }
     
-    public void mostrarListaEditorial(List<Editoriales> editorial){
+    public void mostrarListaEditorial(List<Editorial> editoriales){
         System.out.println("=====Lista Editoriales=====");
-        System.out.printf("%-10s %-10s %-10s %-10s", "NIT", "Nombre", "Telefono", "Direccion");
-        for (Editoriales editoriales : editorial) {
-            System.out.printf("%-10s %-10s %-10s %-10s",
-                editoriales.getNit(), editoriales.getNombre_editorial(), editoriales.getTelefono_editorial(), editoriales.getDireccion_editoria());
+        System.out.printf("%-10s %-10s %-10s %-10s\n55", "NIT", "Nombre", "Telefono", "Direccion");
+        for (Editorial editorial : editoriales) {
+            System.out.printf("%-10s %-10s %-10s %-10s\n",
+                editorial.getNit(), editorial.getNombre_editorial(), editorial.getTelefono_editorial(), editorial.getDireccion_editoria());
         }
         
     }
@@ -73,7 +73,7 @@ public class EditorialesConsoleView {
         System.out.println(mensaje);
     
     }
-    }
+}
     
     
     
