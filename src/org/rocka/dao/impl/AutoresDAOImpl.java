@@ -61,14 +61,38 @@ public class AutoresDAOImpl implements AutoresDAO{
         
         
         //retornamos una lista
-        return null;
+        return Autor;
     }
 
     @Override
-    public Autores buscar(int id_autores) {
-           return null;
+    public Autores buscarPorId(int id_autor) {
+        
+        //objeto
+        Autores autor = new Autores();
+
+        //consulta
+        String consultaSQL = "{call sp_buscarautor(?)}";
+        //mapeamos el ResultSet al Objeto(Cliente) segun sus atributos y la fila devulta
+        try (Connection conexion = Conexion.getInstancia().conectar(); CallableStatement consultaCall = conexion.prepareCall(consultaSQL);) {
+            consultaCall.setInt(1, id_autor);
+            ResultSet tablaResultado = consultaCall.executeQuery();
+            if (tablaResultado.next()) {
+                autor.setId_autor(tablaResultado.getInt("id_autor"));
+                autor.setNombre_autor(tablaResultado.getString("nombre_autor"));
+                autor.setApellido_autor(tablaResultado.getString("apellido_autor"));
+                autor.setNacionalidad(tablaResultado.getString("nacionalidad"));
+                autor.setBiografia(tablaResultado.getString("biografia"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.print("Error al buscar Autor: " + e.getMessage());
+        }
+        //retornamos el objeto
+        return autor;
     }
 
+        
     @Override
     public boolean actualizar(Autores autores) {
         return false;
