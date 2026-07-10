@@ -2,64 +2,86 @@ package org.rocka.dao.impl;
 
 import org.rocka.util.Conexion;
 import org.rocka.dao.ClienteDAO;
-import org.rocka.model.Clientes;
+import org.rocka.model.Cliente;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
+import java.util.List;
 import java.sql.CallableStatement;
-import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.ResultSet;
- 
-public class ClienteDAOImpl implements ClienteDAO{
- 
+import java.sql.SQLException;
+
+public class ClienteDAOImpl implements ClienteDAO {
+
     @Override
-    public boolean insertar(Clientes cliente) {
-        return false; 
-    }
- 
-    @Override
-    public List<Clientes> listarTodos() {
+    public List<Cliente> listarTodos() {
         //crear lista
-        List<Clientes> clientes = new ArrayList<>(); 
-        //crear nuestra consulta 
-        String consulta = "{call sp_listarclientes()}"; 
-        //mapear el resultado de la consulta a objeto y lo agregamos a lista 
-        //try with resources  / intentar con recursos -> cierra el recurso al completar el intento 
-         try  (Connection conexion = Conexion.getInstancia().conectar();
-                CallableStatement consultaCall = conexion.prepareCall(consulta); 
-                ResultSet tablaResultado = consultaCall.executeQuery(); ) {
-             //ciclo para rellenar mi lista 
-             //verificar cada fila del resultado set 
-             //va a guardar cada celda dentro de cada atributo de mi objeto 
-             while(tablaResultado.next()) {
-                  clientes.add(new Clientes(
-                                tablaResultado.getLong("cui"),
-                                tablaResultado.getString("nombreCliente"),
-                                tablaResultado.getString("apellidoCliente"),
-                                tablaResultado.getString("correoElectronico")
-                  )); 
-                  }  
-        }  catch (SQLException e ) {
-              System.err.println("Error al listar Clientes: " + e.getMessage()); 
+        List<Cliente> clientes = new ArrayList<>();//null
+        //crear nustras consulta
+        String consulta = "{call sp_listarclientes()}";
+        //maperar el resultado de la consulta a objeto y lo agregamos a la lista
+        //try with resources / intentar con recursos --> cierra el recurso al completar el intento
+        //recurso: Conexion, al final se cierra
+        try (Connection conexion = Conexion.getInstancia().conectar(); CallableStatement consultaCall = conexion.prepareCall(consulta); ResultSet tablaResultado = consultaCall.executeQuery();) {
+            //ciclo para rellenar mi lista
+            //verificar cada filta del result set
+            //va a guarda cada celda dentro de cada atributo de mi objeto
+            while (tablaResultado.next()) {
+                clientes.add(new Cliente(
+                        tablaResultado.getLong("cui"),
+                        tablaResultado.getString("nombre_cliente"),
+                        tablaResultado.getString("apellido_cliente"),
+                        tablaResultado.getString("correo_electronico")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.print("Error al listar Clientes: " + e.getMessage());
         }
-        //retornamos una lista 
-        return clientes; 
+
+        //retornamos un alista
+        return clientes;
     }
- 
+
     @Override
-    public Clientes buscar(long cui) {
-        return null; 
+    public boolean crear(Cliente cliente) {
+        return false;
     }
- 
+
     @Override
-    public boolean actualizar(Clientes cliente) {
-        return false; 
+    public Cliente buscarPorId(long cui) {
+        //objeto
+        Cliente cliente = new Cliente();
+
+        //consulta
+        String consultaSQL = "{call sp_buscarcliente(?)}";
+        //mapeamos el ResultSet al Objeto(Cliente) segun sus atributos y la fila devulta
+        try (Connection conexion = Conexion.getInstancia().conectar(); CallableStatement consultaCall = conexion.prepareCall(consultaSQL);) {
+            consultaCall.setLong(1, cui);
+            ResultSet tablaResultado = consultaCall.executeQuery();
+            if (tablaResultado.next()) {
+                cliente.setCui(tablaResultado.getLong("cui"));
+                cliente.setNombre(tablaResultado.getString("nombre_cliente"));
+                cliente.setApellido(tablaResultado.getString("apellido_cliente"));
+                cliente.setCorreoElectronico(tablaResultado.getString("correo_electronico"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.print("Error al buscar Cliente: " + e.getMessage());
+        }
+        //retornamos el objeto
+        return cliente;
     }
- 
+
+    @Override
+    public boolean actualizar(Cliente cliente) {
+        return false;
+    }
+
     @Override
     public boolean eliminar(long cui) {
-        return false; 
+        return false;
     }
+
 }

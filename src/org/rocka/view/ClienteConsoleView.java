@@ -2,54 +2,85 @@
 package org.rocka.view;
 import java.util.List;
 import java.util.Scanner;
-import org.rocka.model.Clientes;
+import org.rocka.model.Cliente;
+
 
 public class ClienteConsoleView {
-    private final Scanner leer new Scanner(System.in);
-    
-    public int mostrarMenu(){
+
+    private final Scanner leer = new Scanner(System.in);
+
+    //metodo para mostrar las opcion de este menu
+    public int mostrarMenu() {
         int opcion = 0;
-        
-        System.out.println("----Gestion de clientes-----");
-        System.out.println("-1.CREAR nuevo cliente");
-        System.out.println("-2.LISTAR todos los Clientes");
-        System.out.println("-3.BUSCAR Cliente por ID ");
-        System.out.println("-4.MODIFICAR Cliente");
-        System.out.println("-5.ELIMINAR nuevo Cliente");
-        System.out.println("-6.REGRESAR a menú principal");
-        System.out.println("SELECCIONE UNA OPCIÓN  ");
+        // todo el menu
+        System.out.println("--- GESTION DE CLIENTES ---");
+        System.out.println("-1 CREAR nuevo Cliente ---");
+        System.out.println("-2 LISTAR todos los Clientes ---");
+        System.out.println("-3 BUSCAR Cliente por ID ---");
+        System.out.println("-4 MODIFICAR Cliente ---");
+        System.out.println("-5 ELIMINAR nuevo Cliente ---");
+        System.out.println("-6 REGRESAR a menú PRIMCIPAL ---");
+        System.out.print("SELECCIONE UNA OPCION -->");
+        opcion = Integer.parseInt(leer.nextLine());
         return opcion;
     }
-    
-    public long solicitarCui(){
-        System.out.println("Ingrese el CUI del cliente");
-        return Long.parseLong( leer.nextLine());
+
+    public long solicitarCUI() {
+        System.out.println("Ingrese el CUI del cliente: ");
+        return Long.parseLong(leer.nextLine());
+    }
+
+    //nombreCliente
+    public String solicitarNombreCliente() {
+        String nombre;
+        System.out.println("Ingres el NOMBRE del cliente");
+        nombre = leer.nextLine();
+        return nombre;
+        //return leer.nextLine();
+    }
+
+    //apellidoCliente
+    public String solicitarApellidoCliente() {
+        System.out.println("Ingres el APELLIDO del cliente");
+        return leer.nextLine();
+    }
+
+    //correoEctronico
+    public String solicitarCorreoElectronico() {
+        System.out.println("Ingres el CORREO electrónico del cliente");
+        return leer.nextLine();
     }
     
-    
-    public String solicitarApellidoCliente(){
-        System.out.println("Ingrese el APELLIDO del cliente");
-        return leer.nextLine();
-    }     
-    
-    public String solicitarCorreoElectronico(){
-        System.out.println("Ingrese el CORREO del cliente");
-        return leer.nextLine();
-    }
-    
-    public void mostrarCliente(Clientes cliente){
-        System.out.println("-- DATOS DEL CLIENTE --");
+    //mostrar el detalle de un CLIENTE
+    public void mostrarCliente(Cliente cliente){
+        System.out.println("--- DATOS DEL CLIENTE ---");
         System.out.println("CUI: " + cliente.getCui());
         System.out.println("NOMBRE: " + cliente.getNombre());
-        System.out.println("APELLIDO: "+ cliente.getApellido());
-        System.out.println("CORREO: " + cliente.getCorreoElectronico());
+        System.out.println("APELLIDO: " + cliente.getApellido());
+        System.out.println("CORREO E: "+ cliente.getCorreoElectronico());
+        System.out.println("---\n");
     }
-   
-    public void mostrarListaCliente(List<Clientes>clientes){
-        System.out.println("-- LISTA DE CLIENTES---");
-        System.out.printf("%-10s  %10s  %10s %10s", "CUI","NOMBRE", "APELLIDO", "CORREO");
+    
+    //mostrar la lista de CLIENTES -- lista de objeto List<T>, ArrayList<Cliente>
+    public void mostrarListaClientes(List<Cliente> clientes){
+        System.out.println("--- LISTA DE CLIENTES ---");
+        //tabla usando la propiedad %-[tamaño de columa]s
+        System.out.printf("%-15s %-10s %-10s %-10s\n", "CUI","NOMBRE","APELLIDO","CORREO");
         
-        for (Clientes cliente : clientes)
+        for (Cliente cliente : clientes) {
+            System.out.printf("%-10s %-10s %-10s %-10s\n",
+                    cliente.getCui(), cliente.getNombre(), cliente.getApellido(), cliente.getCorreoElectronico());
+        }
+        System.out.println(" --- fin de clientes ---\n");
     }
+    
+    //para mostrar mensaje personalizado
+    public void mostrarMensaje(String mensaje){
+        System.out.println(mensaje);
+    }
+
+public void mostrarListarClientes(List<Cliente> clientes) {
+    // código
+}
     
 }

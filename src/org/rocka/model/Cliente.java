@@ -4,35 +4,39 @@ package org.rocka.model;
  *
  * @author Jafeth Pérez
  */
-//POJO Nombre, atributos 
-public class Clientes {
+
+//POJO: Nombre, atributos, constructores, getters y setters
+public class Cliente {
+
     /*
     create table clientes(
-	cui bigint primary key,
-    nombre_cliente varchar(100),
-    apellido_cliente varchar(100),
-    correo_electronico varchar(100)
-);
-    */
-    // atributos de clase
+        cui bigint primary key,
+        nombre_cliente varchar(100),
+        apellido_cliente varchar(100),
+        correo_electronico varchar(100)
+    );
+     */
+
+    //atributos de clase
     long cui;
     String nombre;
     String apellido;
     String correoElectronico;
-    
-    //constructores: asignacion de datos, instanciar e iniciar objetos
-    // vacio
-    public Clientes() {
+
+    //constructores: asignación de datos, instanciar objetos
+    //vacio
+    public Cliente() {
     }
-     //lleno con parametros
-    public Clientes(long cui, String nombre, String apellido, String correoElectronico) {
+    //lleno o con parametros
+    public Cliente(long cui, String nombre, String apellido, String correoElectronico) {
         this.cui = cui;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
     }
-//personalizado
- 
+    //personalizador
+    
+    
     //getter and setters
 
     public long getCui() {
@@ -43,15 +47,14 @@ public class Clientes {
         this.cui = cui;
     }
 
-    public String getNombre() {
-       
+    public String getNombre() {        
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        //formatear a Mayusculas
-        //formatear a Inicia con mayusculas
-        String nombreMayusculas =nombre.toUpperCase();
+        //formatear a Mayusucual
+        String nombreMayusculas = nombre.toUpperCase();
+        //formatear a Inicia con Mayusuculas
         this.nombre = nombreMayusculas;
     }
 
@@ -70,10 +73,6 @@ public class Clientes {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-
-    public void setCorreo(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    
     
 }
