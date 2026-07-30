@@ -1,97 +1,107 @@
 package org.rocka.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.rocka.util.Conexion; 
 import org.rocka.dao.CategoriaDAO;
 import org.rocka.model.Categoria;
+import org.rocka.util.Conexion;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
-    public boolean insertar(Categoria categoria) {
-        String sql = "INSERT INTO categorias (nombre_categoria) VALUES (?)";
-        try (Connection con = Conexion.getInstancia().conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, categoria.getNombre_categoria());
-            return ps.executeUpdate() > 0;
+    public List<Categoria> listarTodos() {
+        List<Categoria> categorias = new ArrayList<>();
+        String consulta = "{call sp_listarcategorias()}";
+
+        try (Connection conexion = Conexion.getInstancia().conectar();
+             CallableStatement consultaCall = conexion.prepareCall(consulta);
+             ResultSet tablaResultado = consultaCall.executeQuery()) {
+
+            while (tablaResultado.next()) {
+                categorias.add(new Categoria(
+                        tablaResultado.getInt("id_categoria"),
+                        tablaResultado.getString("nombre_categoria")
+                ));
+            }
         } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e.getMessage());
+            System.err.println("Error al listar Categorías: " + e.getMessage());
+        }
+
+        return categorias;
+    }
+
+    @Override
+    public boolean crear(Categoria categoria) {
+        String consulta = "{call sp_insertarcategoria(?)}";
+        try (Connection conexion = Conexion.getInstancia().conectar();
+             CallableStatement consultaCall = conexion.prepareCall(consulta)) {
+
+            // Se usa el getter real de tu modelo: getNombre_categoria()
+            consultaCall.setString(1, categoria.getNombre_categoria());
+
+            return consultaCall.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al crear Categoría: " + e.getMessage());
             return false;
         }
     }
 
     @Override
-    public List<Categoria> listarTodos() {
-        List<Categoria> lista = new ArrayList<>();
-        String sql = "SELECT id_categoria, nombre_categoria FROM categorias";
-        try (Connection con = Conexion.getInstancia().conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            
-            while (rs.next()) {
-                Categoria cat = new Categoria();
-                cat.setId_categoria(rs.getInt("id_categoria"));
-                cat.setNombre_categoria(rs.getString("nombre_categoria"));
-                lista.add(cat);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al listar: " + e.getMessage());
-        }
-        return lista;
-    }
-
-    @Override
-    public Categoria buscar(int id_categoria) {
+    public Categoria buscarPorId(int idCategoria) {
         Categoria categoria = null;
-        String sql = "SELECT id_categoria, nombre_categoria FROM categorias WHERE id_categoria = ?";
-        
-        try (Connection con = Conexion.getInstancia().conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            
-            ps.setInt(1, id_categoria);
-            
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+        String consultaSQL = "{call sp_buscarcategoria(?)}";
+
+        try (Connection conexion = Conexion.getInstancia().conectar();
+             CallableStatement consultaCall = conexion.prepareCall(consultaSQL)) {
+
+            consultaCall.setInt(1, idCategoria);
+            try (ResultSet tablaResultado = consultaCall.executeQuery()) {
+                if (tablaResultado.next()) {
                     categoria = new Categoria();
-                    categoria.setId_categoria(rs.getInt("id_categoria"));
-                    categoria.setNombre_categoria(rs.getString("nombre_categoria"));
+                    // Se usan los setters reales de tu modelo
+                    categoria.setId_categoria(tablaResultado.getInt("id_categoria"));
+                    categoria.setNombre_categoria(tablaResultado.getString("nombre_categoria"));
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar la categoría: " + e.getMessage());
+            System.err.println("Error al buscar Categoría: " + e.getMessage());
         }
+
         return categoria;
     }
 
     @Override
     public boolean actualizar(Categoria categoria) {
-        String sql = "UPDATE categorias SET nombre_categoria = ? WHERE id_categoria = ?";
-        try (Connection con = Conexion.getInstancia().conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, categoria.getNombre_categoria());
-            ps.setInt(2, categoria.getId_categoria());
-            return ps.executeUpdate() > 0;
+        String consulta = "{call sp_actualizarcategoria(?, ?)}";
+        try (Connection conexion = Conexion.getInstancia().conectar();
+             CallableStatement consultaCall = conexion.prepareCall(consulta)) {
+
+            // Se usan los getters reales de tu modelo
+            consultaCall.setInt(1, categoria.getId_categoria());
+            consultaCall.setString(2, categoria.getNombre_categoria());
+
+            return consultaCall.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error al actualizar: " + e.getMessage());
+            System.err.println("Error al actualizar Categoría: " + e.getMessage());
             return false;
         }
     }
 
     @Override
-    public boolean eliminar(int id_categoria) {
-        String sql = "DELETE FROM categorias WHERE id_categoria = ?";
-        try (Connection con = Conexion.getInstancia().conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id_categoria);
-            return ps.executeUpdate() > 0;
+    public boolean eliminar(int idCategoria) {
+        String consulta = "{call sp_eliminarcategoria(?)}";
+        try (Connection conexion = Conexion.getInstancia().conectar();
+             CallableStatement consultaCall = conexion.prepareCall(consulta)) {
+
+            consultaCall.setInt(1, idCategoria);
+
+            return consultaCall.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar: " + e.getMessage());
+            System.err.println("Error al eliminar Categoría: " + e.getMessage());
             return false;
         }
     }
