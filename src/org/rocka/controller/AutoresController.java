@@ -34,13 +34,19 @@ public class AutoresController {
                         
                     case 4:
                         
-                        break;
-                        
-             }
-         }while (opcion != 4); 
-        
-        
+                       break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        } while (opcion != 6);
     }
+
     
     
     private void listar() {
@@ -53,6 +59,8 @@ public class AutoresController {
         Autores autor = dao.buscarPorId(id_autor);
         if(autor != null){
             vista.mostrarAutores(autor);
+        } else {
+            vista.mostrarMensaje("Autor no encontrado por el id: " + id_autor);
         }
     }
 }
