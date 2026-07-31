@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21.0.1" fx:controller="org.ac.controller.InicioSesionController">
+<AnchorPane id="AnchorPane" prefHeight="426.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rocka.controller.InicioSesionController">
     <stylesheets>
-        <URL value="@/org/ac/view/style/iniciosesionview.css" />
+        <URL value="@/style/iniciosesionview.css" />
     </stylesheets>
    <children>
       <StackPane layoutX="100.0" layoutY="100.0" prefHeight="200.0" prefWidth="400.0">
@@ -46,7 +46,8 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnIniciarSesion" layoutX="240.0" layoutY="334.0" mnemonicParsing="false" onAction="#eventoInicioSesion" prefHeight="30.0" prefWidth="120.0" text="INICIAR" />
+      <Button fx:id="btnIniciarSesion" layoutX="137.0" layoutY="334.0" mnemonicParsing="false" onAction="#eventoInicioSesion" prefHeight="30.0" prefWidth="204.0" text="INICIAR" />
       <Label fx:id="lblMensaje" layoutX="271.0" layoutY="309.0" text="Mensaje" textFill="#f83737" />
+      <Button fx:id="btnRegistro" layoutX="355.0" layoutY="334.0" mnemonicParsing="false" onAction="#eventoRegistrarse" prefHeight="30.0" prefWidth="108.0" text="REGISTRARSE" />
    </children>
 </AnchorPane>

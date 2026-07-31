@@ -9,18 +9,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import org.rocka.system.Main;
+import org.rocka.util.SesionContext;
+import org.rocka.util.ValidacionException;
 
 public class InicioSesionController implements Initializable {
-
+    
     @FXML
     private TextField txtUsuario;
     @FXML
@@ -29,74 +30,78 @@ public class InicioSesionController implements Initializable {
     private Button btnIniciarSesion;
     @FXML
     private Label lblMensaje;
-
+    
     private UsuarioDAO usuarioDAO;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usuarioDAO = new UsuarioDAO();
         lblMensaje.setText("");
-        //btnIniciarSesion.setOnAction(e -> eventoInicioSesion());
-
+        btnIniciarSesion.setOnAction(this::eventoInicioSesion);
+    }
+    
+    @FXML
+    public void eventoInicioSesion(ActionEvent evento) {
+        try {
+            ValidacionException.validarNoVacio(txtUsuario.getText(), "usuario");
+            ValidacionException.validarNoVacio(txtPassword.getText(), "contraseña");
+            
+            String usuario = txtUsuario.getText();
+            String password = txtPassword.getText();
+            String passwordHash = SecurityUtil.hashSHA256(password);
+            Usuario usuarioIniciado = usuarioDAO.iniciarSesion(usuario, passwordHash);            
+            
+            if (usuarioIniciado != null) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Inicio correcto");
+                abrirDashboard(usuarioIniciado);
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos");
+            }
+            
+        } catch (ValidacionException e) {
+            mostrarAlerta(Alert.AlertType.WARNING, e.getMessage());
+            lblMensaje.setText(e.getMessage());
+        }        
     }
 
     @FXML
-    public void eventoInicioSesion(ActionEvent evento) {
-        String usuario = txtUsuario.getText();
-        String password = txtPassword.getText();
-
-        //verificación si los datos estan vacios
-        if (usuario.isEmpty() || password.isEmpty()) {
-            lblMensaje.setText("Por favor, complete todos sus datos.");
-            return;
-        }
-        //Datos completos
-        String passwordHash = SecurityUtil.hashSHA256(password);
-        //llamar al dato para iniciar sesion
-        Usuario usuarioIniciado = usuarioDAO.iniciarSesion(usuario, passwordHash);
-        // ! =
-        if (usuarioIniciado != null) {
-            //lblMensaje.setStyle("-fx-background-color: #60682e;");
-            lblMensaje.setText("Inicio correcto");
-            abrirDashboard(usuarioIniciado);
-        } else {
-            lblMensaje.setText("Usuario o contraseña incorrectos");
-        }
-    }
-
-    private void abrirDashboard(Usuario usuario) {
-        String rutaFXML = "";
-        String tituloDashboard = "";
-
-        switch (usuario.getRol().toLowerCase()) {
-            case "admin":
-                rutaFXML = "/org/ac/view/AdminDashboradView.fxml";
-                tituloDashboard = "Panel de Administración";
-                break;
-            case "empleado":
-
-                break;
-
-        }
+    public void eventoRegistrarse(ActionEvent evento){
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource(rutaFXML));
-            Parent raiz = cargadorFXML.load();
-            
-            AdminDashboradController controlado = cargadorFXML.getController();
-            controlado.iniciarUsuario(usuario);            
-            
-            Stage escenario = new Stage();
-            escenario.setScene(new Scene(raiz));
-            escenario.setTitle(tituloDashboard);
-            escenario.show();
-            
-            Stage escenaActual = (Stage) btnIniciarSesion.getScene().getWindow();
-            escenaActual.close();
-            
+            Main.cambiarEscena("/org/rocka/view/RegistrarUsuarioView.fxml");
         } catch (IOException e) {
-            System.err.println("Error al cargar la vista:" + rutaFXML+ e.getMessage());
+            System.err.println("Error al cargar registro: " + e.getMessage());
             lblMensaje.setText("Error interno");
         }
     }
-
+    
+    private void abrirDashboard(Usuario usuario) {
+        SesionContext.getInstancia().setUsuarioActual(usuario);
+        String rutaFXML = "";        
+        
+        if (usuario.getRol() != null) {
+            switch (usuario.getRol().toLowerCase()) {
+                case "admin":
+                    rutaFXML = "/org/rocka/view/AdminDashboardView.fxml";
+                    break;
+                case "empleado":
+                    rutaFXML = "/org/rocka/view/EmpleadoDashboradView.fxml";
+                    break;
+                default:
+                    lblMensaje.setText("Rol de usuario desconocido");
+                    return;
+            }
+        }
+        
+        try {
+            Main.cambiarEscena("/org/rocka/view/AdminDashboardView.fxml");
+        } catch (IOException e) {
+            System.err.println("Error al cargar la vista:" + rutaFXML + " " + e.getMessage());
+            lblMensaje.setText("Error interno");
+        }
+    }
+    
+    private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+        Alert alerta = new Alert(tipo, mensaje, ButtonType.OK);
+        alerta.show();
+    }
 }
