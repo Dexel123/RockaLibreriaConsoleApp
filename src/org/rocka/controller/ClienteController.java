@@ -5,7 +5,6 @@ import org.rocka.dao.impl.ClienteDAOImpl;
 import org.rocka.model.Cliente;
 import org.rocka.view.ClienteConsoleView;
 
-
 public class ClienteController {
 
     private final ClienteDAO dao;

@@ -4,7 +4,6 @@ package org.rocka.dao;
 import java.util.List;
 import org.rocka.model.Cliente;
 
-
 public interface ClienteDAO {
     //firmas de metodos
     //CRUD
@@ -14,6 +13,4 @@ public interface ClienteDAO {
     boolean actualizar(Cliente cliente);
     boolean eliminar(long cui);
     
-        
-  }
-    
+}

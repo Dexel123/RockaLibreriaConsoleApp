@@ -1,10 +1,5 @@
 package org.rocka.model;
 
-/**
- *
- * @author Jafeth Pérez
- */
-
 //POJO: Nombre, atributos, constructores, getters y setters
 public class Cliente {
 

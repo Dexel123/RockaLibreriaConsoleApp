@@ -1,9 +1,8 @@
-
 package org.rocka.view;
+
 import java.util.List;
 import java.util.Scanner;
 import org.rocka.model.Cliente;
-
 
 public class ClienteConsoleView {
 
@@ -78,9 +77,5 @@ public class ClienteConsoleView {
     public void mostrarMensaje(String mensaje){
         System.out.println(mensaje);
     }
-
-public void mostrarListarClientes(List<Cliente> clientes) {
-    // código
-}
     
 }
