@@ -40,4 +40,14 @@ public class AdminDashboardController implements Initializable {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }
+    
+        @FXML
+    public void eventoCliente(ActionEvent evento) {
+        try {
+            Main.cambiarEscena("/org/rocka/view/InicioSesionView.fxml");
+        } catch (IOException e) {
+            System.err.println("Error al cargar la escena: " + e.getMessage());
+        }
+    }
+    
 } 
