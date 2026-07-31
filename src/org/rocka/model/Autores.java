@@ -1,39 +1,34 @@
-package org.rocka.model;
-
-
-//POJO: NOMBRE ATRIBUTOS CONSTRUCTORES GETTERS Y SETTERS 
+package org.rocka.model; 
 public class Autores {
    
     /*
     create table autores(
-	id_autor int primary key auto_increment,
-    nombre_autor varchar(100) not null,
-    apellido_autor varchar(100) not null,
+	idAutor int primary key auto_increment,
+    nombreAutor varchar(100) not null,
+    apellidoAutor varchar(100) not null,
     nacionalidad varchar(100),
     biografia text
 
     */
     
     //atributos de clase
-    int id_autor;
-    String nombre_autor;
+    int idAutor;
+    String nombreAutor;
     String nacionalidad;
-    String apellido_autor;
+    String apellidoAutor;
     String biografia;
     
     
-    //constructores:Asignacion de datos, instanciar objetos
-    // vacio
-    
+   
     public Autores() {
     }
    
     // lleno con parametros
-    public Autores(int id_autor, String nombre_autor, String nacionalidad, String apellido_autor, String biografia) {
-        this.id_autor = id_autor;
-        this.nombre_autor = nombre_autor;
+    public Autores(int idAutor, String nombreAutor, String nacionalidad, String apellidoAutor, String biografia) {
+        this.idAutor = idAutor;
+        this.nombreAutor = nombreAutor;
         this.nacionalidad = nacionalidad;
-        this.apellido_autor = apellido_autor;
+        this.apellidoAutor = apellidoAutor;
         this.biografia = biografia;
     }
     //personalizados
@@ -42,23 +37,22 @@ public class Autores {
      //getter and setters
 
     public int getId_autor() {
-        return id_autor;
+        return idAutor;
     }
 
-    public void setId_autor(int id_autor) {
-        this.id_autor = id_autor;
+    public void setId_autor(int idAutor) {
+        this.idAutor = idAutor;
     }
 
-    public String getNombre_autor() {
+    public String getNombreAutor() {
    
-        return nombre_autor;
+        return nombreAutor;
     }
 
-    public void setNombre_autor(String nombre_autor) {
-             // formatear a mayusculas
-            //formatear a inicial con myusculas
-            String nombreMayuscualas = nombre_autor.toUpperCase();
-        this.nombre_autor = nombre_autor;
+    public void setNombre_autor(String nombreAutor) {
+            
+            String nombreMayuscualas = nombreAutor.toUpperCase();
+        this.nombreAutor = nombreAutor;
     }
 
     public String getNacionalidad() {
@@ -69,12 +63,12 @@ public class Autores {
         this.nacionalidad = nacionalidad;
     }
 
-    public String getApellido_autor() {
-        return apellido_autor;
+    public String getApellidoAutor() {
+        return apellidoAutor;
     }
 
-    public void setApellido_autor(String apellido_autor) {
-        this.apellido_autor = apellido_autor;
+    public void setApellido_autor(String apellidoAutor) {
+        this.apellidoAutor = apellidoAutor;
     }
 
     public String getBiografia() {

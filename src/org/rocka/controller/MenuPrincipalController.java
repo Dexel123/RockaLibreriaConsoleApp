@@ -14,7 +14,8 @@ public class MenuPrincipalController {
         try {
             Main.cambiarVista("/org/rocka/view/AutoresView.fxml");
         } catch (Exception e) {
-            mostrarError("Error al cargar la vista de clientes:\n" + e.getMessage());
+            mostrarError("Error al cargar la vista de AUTORES:\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 

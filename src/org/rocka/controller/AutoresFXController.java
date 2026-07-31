@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.rocka.dao.AutoresDAO;
 import org.rocka.dao.impl.AutoresDAOImpl;
 import org.rocka.model.Autores;
@@ -18,27 +20,52 @@ import org.rocka.system.Main;
 public class AutoresFXController implements Initializable {
 
     @FXML
-    private TextField txtId_autor;
+    private TextField txtNombreAutor;
+   
     @FXML
-    private TextField txtNombre_autor;
+    private TextField txtApellidoAutor;
     @FXML
     private TextField txtNacionalidad;
-    @FXML
-    private TextField txtApellido_autor;
     @FXML
     private TextField txtBiografia;
     @FXML
     private Label lblMensaje;
     @FXML
-    private TableView<Autores> tablaAutores;//Tabla de entidad: cliente
+    private TableView<Autores> tablaAutores;
+    
+    
+   @FXML
+    private TableColumn<Autores, String> colId;
+    @FXML
+    private TableColumn<Autores, String> colNombre;
+   
+    
+    @FXML
+    private TableColumn<Autores, String> colApellido;
+    
+    @FXML
+    private TableColumn<Autores, String> colNacionalidad;
+    
+    @FXML
+    private TableColumn<Autores, String> colBiografia;
+    
 
     private final AutoresDAO autoresDAO = new AutoresDAOImpl();
-    private final ObservableList<Autores> listaAutores = FXCollections.observableArrayList();//Entidad:Cliente
+    private final ObservableList<Autores> listaAutores = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarTabla();
         seleccionarFila();
+    }
+    
+    private void configurarTabla(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("idAutor"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreAutor"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<>("apellidoAutor"));
+        colNacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
+        colBiografia.setCellValueFactory(new PropertyValueFactory<>("biografia"));
+        
     }
 
     private void cargarTabla() {
@@ -50,10 +77,10 @@ public class AutoresFXController implements Initializable {
         tablaAutores.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> {
                     if (newSelection != null) {
-                        txtId_autor.setText(String.valueOf(newSelection.getId_autor()));
-                        txtNombre_autor.setText(newSelection.getNombre_autor());
+                        
+                        txtNombreAutor.setText(newSelection.getNombreAutor());
                         txtNacionalidad.setText(newSelection.getNacionalidad());
-                        txtApellido_autor.setText(newSelection.getApellido_autor());
+                        txtApellidoAutor.setText(newSelection.getApellidoAutor());
                         txtBiografia.setText(newSelection.getBiografia());
                     }
                 });
@@ -62,20 +89,20 @@ public class AutoresFXController implements Initializable {
     @FXML
     private void handleGuardar() {
         try {
-            if (txtId_autor.getText().isEmpty() || txtNombre_autor.getText().isEmpty()
-                    || txtNacionalidad.getText().isEmpty() || txtApellido_autor.getText().isEmpty() || txtBiografia.getText().isEmpty()) {
+            if ( txtNombreAutor.getText().isEmpty()
+                    || txtNacionalidad.getText().isEmpty() || txtApellidoAutor.getText().isEmpty() || txtBiografia.getText().isEmpty()) {
                 mostrarError("Todos los campos son obligatorios.");
                 return;
             }
 
             Autores autor = new Autores();
-            autor.setId_autor(Integer.parseInt(txtId_autor.getText().trim()));
-            autor.setNombre_autor(txtNombre_autor.getText().trim());
+           
+            autor.setNombre_autor(txtNombreAutor.getText().trim());
             autor.setNacionalidad(txtNacionalidad.getText().trim());
-            autor.setApellido_autor(txtApellido_autor.getText().trim());
+            autor.setApellido_autor(txtApellidoAutor.getText().trim());
             autor.setBiografia(txtBiografia.getText().trim());
 
-            if (autoresDAO.crear(autor)) {
+            if (autoresDAO.insertar(autor)) {
                 lblMensaje.setText("Autor registrado exitosamente.");
                 cargarTabla();
                 limpiarFormulario();
@@ -111,10 +138,10 @@ public class AutoresFXController implements Initializable {
     }
 
     private void limpiarFormulario() {
-        txtId_autor.clear();
-        txtNombre_autor.clear();
+       
+        txtNombreAutor.clear();
         txtNacionalidad.clear();
-        txtApellido_autor.clear();
+        txtApellidoAutor.clear();
         txtBiografia.clear();
     }
 

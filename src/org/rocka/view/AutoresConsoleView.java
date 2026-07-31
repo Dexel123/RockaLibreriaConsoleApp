@@ -70,8 +70,8 @@ public class AutoresConsoleView {
    public void mostrarAutores(Autores autor){
              System.out.println("_____Datos autor_____");
              System.out.println("ID: " + autor.getId_autor()); 
-             System.out.println("Nombre: " + autor.getNombre_autor()); 
-             System.out.println("Apellido: " + autor.getApellido_autor()); 
+             System.out.println("Nombre: " + autor.getNombreAutor()); 
+             System.out.println("Apellido: " + autor.getApellidoAutor()); 
              System.out.println("Nacionalidad: " + autor.getNacionalidad()); 
              System.out.println("Biografia: " + autor.getBiografia()); 
 
@@ -83,7 +83,7 @@ public class AutoresConsoleView {
        System.out.printf("%-15s %-30s %-30s %-30s %-45s \n" ,  "id " , "nombre" , "apellido" , " nacionalidad", "biografia");
        for (Autores autores : autor) {
            System.out.printf("%-15s %-30s %-30s %-30s %-45s \n",
-                          autores.getId_autor(), autores.getNombre_autor(), autores.getApellido_autor(), autores.getNacionalidad() , autores.getBiografia()); 
+                          autores.getId_autor(), autores.getNombreAutor(), autores.getApellidoAutor(), autores.getNacionalidad() , autores.getBiografia()); 
 
             }
         System.out.println(" --- fin de clientes ---\n");

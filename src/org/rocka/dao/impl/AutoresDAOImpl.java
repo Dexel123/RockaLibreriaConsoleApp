@@ -16,17 +16,16 @@ public class AutoresDAOImpl implements AutoresDAO{
 
     @Override
     public boolean insertar(Autores autores) {
-     String consulta = "{call sp_insertarcliente(?, ?, ?, ?,?)}";
+     String consulta = "{call sp_insertarautor(?, ?, ?, ?)}";
         try (Connection conexion = Conexion.getInstancia().conectar();
-             CallableStatement consultaCall = conexion.prepareCall(consulta)) {
-            consultaCall.setLong(1, autores.getId_autor());
-            consultaCall.setString(2, autores.getNombre_autor());
+             CallableStatement consultaCall = conexion.prepareCall(consulta)) {          
+            consultaCall.setString(1, autores.getNombreAutor());
+            consultaCall.setString(2, autores.getApellidoAutor());
             consultaCall.setString(3, autores.getNacionalidad());
-            consultaCall.setString(4, autores.getApellido_autor());
-            consultaCall.setString(5, autores.getBiografia());
+            consultaCall.setString(4, autores.getBiografia());
             return consultaCall.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.print("Error al crear Cliente: " + e.getMessage());
+            System.err.print("Error al crear Autor: " + e.getMessage());
             return false;
         }
     }
@@ -73,9 +72,9 @@ public class AutoresDAOImpl implements AutoresDAO{
             consultaCall.setInt(1, id_autor);
             ResultSet tablaResultado = consultaCall.executeQuery();
             if (tablaResultado.next()) {
-                autor.setId_autor(tablaResultado.getInt("id_autor"));
-                autor.setNombre_autor(tablaResultado.getString("nombre_autor"));
-                autor.setApellido_autor(tablaResultado.getString("apellido_autor"));
+                autor.setId_autor(tablaResultado.getInt("idAutor"));
+                autor.setNombre_autor(tablaResultado.getString("nombreAutor"));
+                autor.setApellido_autor(tablaResultado.getString("apellidoAutor"));
                 autor.setNacionalidad(tablaResultado.getString("nacionalidad"));
                 autor.setBiografia(tablaResultado.getString("biografia"));
             } else {
@@ -95,7 +94,7 @@ public class AutoresDAOImpl implements AutoresDAO{
     }
 
     @Override
-    public boolean eliminar(int id_autores) {
+    public boolean eliminar(int idAutores) {
         return false;
     }
 }
