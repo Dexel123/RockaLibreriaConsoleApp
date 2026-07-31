@@ -18,16 +18,17 @@ import org.rocka.system.Main;
 public class CategoriaFXController implements Initializable {
 
     @FXML
-    private TextField txtIdCategoria;
+    private TextField txtID;
     @FXML
-    private TextField txtNombreCategoria;
+    private TextField txtNombre;
     @FXML
     private Label lblMensaje;
-    @FXML
-    private TableView<Categoria> tablaCategorias;
+    
+
+    private TableView<Categoria> tablaCategoria;//Tabla de entidad: Categoria
 
     private final CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
-    private final ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
+    private final ObservableList<Categoria> listaCategoria = FXCollections.observableArrayList();//Entidad:Categoria
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,20 +37,17 @@ public class CategoriaFXController implements Initializable {
     }
 
     private void cargarTabla() {
-        // Se llama al método usando la instancia del DAO
-        listaCategorias.setAll(categoriaDAO.listarTodos());
-        tablaCategorias.setItems(listaCategorias);
+        listaCategoria.setAll(categoriaDAO.listarTodos());
+        tablaCategoria.setItems(listaCategoria);
     }
 
     private void seleccionarFila() {
-        tablaCategorias.getSelectionModel().selectedItemProperty().addListener(
+        tablaCategoria.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> {
                     if (newSelection != null) {
-                        // Coincide con los getters exactos de tu Categoria.java
-                        if (txtIdCategoria != null) {
-                            txtIdCategoria.setText(String.valueOf(newSelection.getId_categoria()));
-                        }
-                        txtNombreCategoria.setText(newSelection.getNombre_categoria());
+                        txtID.setText(String.valueOf(newSelection.getID()));
+                        txtNombre.setText(newSelection.getNombre());
+                        
                     }
                 });
     }
@@ -57,22 +55,24 @@ public class CategoriaFXController implements Initializable {
     @FXML
     private void handleGuardar() {
         try {
-            if (txtNombreCategoria.getText().trim().isEmpty()) {
-                mostrarError("El nombre de la categoría es obligatorio.");
+            if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty()) {
+                mostrarError("Todos los campos son obligatorios.");
                 return;
             }
 
             Categoria categoria = new Categoria();
-            // Coincide con el setter de tu Categoria.java
-            categoria.setNombre_categoria(txtNombreCategoria.getText().trim());
+            categoria.setID(Long.parseLong(txtID.getText().trim()));
+            categoria.setNombre(txtNombre.getText().trim());
 
-            if (categoriaDAO.insertar(categoria)) {
-                lblMensaje.setText("Categoría registrada exitosamente.");
+            if (categoriaDAO.crear(categoria)) {
+                lblMensaje.setText("Categoria registrado exitosamente.");
                 cargarTabla();
                 limpiarFormulario();
             } else {
-                mostrarError("No se pudo registrar la categoría.");
+                mostrarError("No se pudo registrar la categoria.");
             }
+        } catch (NumberFormatException e) {
+            mostrarError("El ID debe ser un número válido.");
         } catch (Exception e) {
             mostrarError("Error al guardar: " + e.getMessage());
         }
@@ -100,10 +100,9 @@ public class CategoriaFXController implements Initializable {
     }
 
     private void limpiarFormulario() {
-        if (txtIdCategoria != null) {
-            txtIdCategoria.clear();
-        }
-        txtNombreCategoria.clear();
+        txtID.clear();
+        txtNombre.clear();
+
     }
 
     private void mostrarError(String mensaje) {
@@ -113,4 +112,5 @@ public class CategoriaFXController implements Initializable {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
 }

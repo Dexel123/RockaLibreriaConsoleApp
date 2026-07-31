@@ -1,33 +1,45 @@
-package org.rocka.view;
 
+package org.rocka.view;
 import java.util.Scanner;
 import org.rocka.controller.CategoriaController;
 
 public class MenuPrincipal {
     Scanner leer = new Scanner(System.in);
-
+    
     public void iniciar(){
         int opcion = 0;
         do {
-            System.out.println("Bienvenido, seleccione una opcion!");
-            System.out.println("1. Modulo Categorias");
-            System.out.println("2. Salir");
-
+            System.out.println("Bienvenido, selecciones una opcion!");
+            System.out.println("1. Modulo Cliente");
+            System.out.println("2. Modulo Autores");
+            System.out.println("3. Modulo Categorias");
+            System.out.println("5. Modulo Editoriales");
+            System.out.println("4. Salir");
             opcion = Integer.parseInt(leer.nextLine());
-
+            
             switch (opcion) {
                 case 1:
-                    CategoriaConsoleView vistaCat = new CategoriaConsoleView();
-                    CategoriaController controlCat = new CategoriaController(vistaCat);
-                    controlCat.iniciar();
+                        System.out.println("Cliente");
+                        CategoriaConsoleView vistaCliente = new CategoriaConsoleView();
+                        CategoriaController controladorCliente = new CategoriaController(vistaCliente);
+                        controladorCliente.iniciar();
                     break;
                 case 2:
+                    System.out.println("Autor");
+                    break;
+                case 3:
+                    System.out.println("Categoria");
+                    break;
+                case 4:
                     System.out.println("Adiós Vaquero!");
                     break;   
+                case 5:
+                    System.out.println("Editoriales");
+                    break;
                 default:
                     System.out.println("NO existe esta opción");
             }
-        } while (opcion != 2);
+            
+        } while (opcion != 4);
     }
 }
- 

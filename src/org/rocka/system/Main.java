@@ -16,7 +16,7 @@ public class Main extends Application {
         Main.escenarioPrincipal = escenarioPrincipal;
         
         // Carga de la vista inicial desde el paquete org.rocka
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/rocka/view/MenuPrincipal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/rocka/view/FXML.fxml"));
         Parent root = loader.load();
         
         Scene scene = new Scene(root);

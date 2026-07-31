@@ -41,7 +41,7 @@ public class CategoriaController {
 
     private void buscar() {
         int id = vista.solicitarIdCategoria();
-        Categoria categoria = dao.buscar(id);
+        Categoria categoria = dao.buscarPorId(id);
         
 
         if (categoria != null) {
