@@ -53,9 +53,9 @@ public class EditorialConsoleView {
     public void mostrarEditorial(Editorial editorial){
         System.out.println("=====Datos Editoriales=====");
         System.out.println("NIT: " + editorial.getNit());
-        System.out.println("Nombre: " + editorial.getNombre_editorial());
-        System.out.println("Telefono: " + editorial.getTelefono_editorial());
-        System.out.println("Direccion: " + editorial.getDireccion_editoria());
+        System.out.println("Nombre: " + editorial.getNombreEditorial());
+        System.out.println("Telefono: " + editorial.getTelefonoEditorial());
+        System.out.println("Direccion: " + editorial.getDireccionEditorial());
     
     }
     
@@ -64,7 +64,7 @@ public class EditorialConsoleView {
         System.out.printf("%-10s %-10s %-10s %-10s\n55", "NIT", "Nombre", "Telefono", "Direccion");
         for (Editorial editorial : editoriales) {
             System.out.printf("%-10s %-10s %-10s %-10s\n",
-                editorial.getNit(), editorial.getNombre_editorial(), editorial.getTelefono_editorial(), editorial.getDireccion_editoria());
+                editorial.getNit(), editorial.getNombreEditorial(), editorial.getTelefonoEditorial(), editorial.getDireccionEditorial());
         }
         
     }

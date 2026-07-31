@@ -15,15 +15,15 @@ public class Editorial {
     */
     // atributos de clase
     String nit;
-    String nombre_editorial;
-    String telefono_editorial;
-    String direccion_editoria;
+    String nombreEditorial;
+    String telefonoEditorial;
+    String direccionEditorial;
 
-    public Editorial(String nit, String nombre_editorial, String telefono_editorial, String direccion_editoria) {
+    public Editorial(String nit, String nombreEditorial, String telefonoEditorial, String direccionEditorial) {
         this.nit = nit;
-        this.nombre_editorial = nombre_editorial;
-        this.telefono_editorial = telefono_editorial;
-        this.direccion_editoria = direccion_editoria;
+        this.nombreEditorial = nombreEditorial;
+        this.telefonoEditorial = telefonoEditorial;
+        this.direccionEditorial = direccionEditorial;
     }
     
     
@@ -36,28 +36,28 @@ public class Editorial {
         this.nit = nit;
     }
 
-    public String getNombre_editorial() {
-        return nombre_editorial;
+    public String getNombreEditorial() {
+        return nombreEditorial;
     }
 
-    public void setNombre_editorial(String nombre_editorial) {
-        this.nombre_editorial = nombre_editorial;
+    public void setNombreEditorial(String nombreEditorial) {
+        this.nombreEditorial = nombreEditorial;
     }
 
-    public String getTelefono_editorial() {
-        return telefono_editorial;
+    public String getTelefonoEditorial() {
+        return telefonoEditorial;
     }
 
-    public void setTelefono_editorial(String telefono_editorial) {
-        this.telefono_editorial = telefono_editorial;
+    public void setTelefonoEditorial(String telefonoEditorial) {
+        this.telefonoEditorial = telefonoEditorial;
     }
 
-    public String getDireccion_editoria() {
-        return direccion_editoria;
+    public String getDireccionEditorial() {
+        return direccionEditorial;
     }
 
-    public void setDireccion_editoria(String direccion_editoria) {
-        this.direccion_editoria = direccion_editoria;
+    public void setDireccionEditorial(String direccionEditorial) {
+        this.direccionEditorial = direccionEditorial;
     }
     
     //constructores: asignacion de datos, instanciar e iniciar objetos

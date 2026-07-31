@@ -18,7 +18,7 @@ public class EditorialDAOImpl implements EditorialDAO {
         //crear lista
         List<Editorial> editoriales = new ArrayList<>();//null
         //crear nustras consulta
-        String consulta = "{call sp_listarclientes()}";
+        String consulta = "{call sp_listareditoriales()}";
         //maperar el resultado de la consulta a objeto y lo agregamos a la lista
         //try with resources / intentar con recursos --> cierra el recurso al completar el intento
         //recurso: Conexion, al final se cierra
@@ -35,22 +35,23 @@ public class EditorialDAOImpl implements EditorialDAO {
                 ));
             }
         } catch (SQLException e) {
-            System.err.print("Error al listar Clientes: " + e.getMessage());
+            System.err.print("Error al listar Editoriales: " + e.getMessage());
         }
-
+        
+      
         //retornamos un alista
         return editoriales;
     }
 
     @Override
     public boolean insertar(Editorial editorial) {
-        String consulta = "{call sp_insertarcliente(?, ?, ?, ?)}";
+        String consulta = "{call sp_insertareditorial(?, ?, ?, ?)}";
         try (Connection conexion = Conexion.getInstancia().conectar();
              CallableStatement consultaCall = conexion.prepareCall(consulta)) {
             consultaCall.setString(1, editorial.getNit());
-            consultaCall.setString(2, editorial.getNombre_editorial());
-            consultaCall.setString(3, editorial.getTelefono_editorial());
-            consultaCall.setString(4, editorial.getDireccion_editoria());
+            consultaCall.setString(2, editorial.getNombreEditorial());
+            consultaCall.setString(3, editorial.getTelefonoEditorial());
+            consultaCall.setString(4, editorial.getDireccionEditorial());
             return consultaCall.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print("Error al crear Cliente: " + e.getMessage());
@@ -61,27 +62,27 @@ public class EditorialDAOImpl implements EditorialDAO {
     @Override
     public Editorial buscarPorId(String nit) {
         //objeto
-        Editorial cliente = new Editorial();
+        Editorial editorial = new Editorial();
 
         //consulta
-        String consultaSQL = "{call sp_buscarcliente(?)}";
-        //mapeamos el ResultSet al Objeto(Cliente) segun sus atributos y la fila devulta
+        String consultaSQL = "{call sp_buscareditoriales(?)}";
+        //mapeamos el ResultSet al Objeto(Editorial) segun sus atributos y la fila devulta
         try (Connection conexion = Conexion.getInstancia().conectar(); CallableStatement consultaCall = conexion.prepareCall(consultaSQL);) {
             consultaCall.setString(1, nit);
             ResultSet tablaResultado = consultaCall.executeQuery();
             if (tablaResultado.next()) {
-                cliente.setNit(tablaResultado.getString("nit"));
-                cliente.setNombre_editorial(tablaResultado.getString("nombre_editorial"));
-                cliente.setTelefono_editorial(tablaResultado.getString("telefono_editorial"));
-                cliente.setDireccion_editoria(tablaResultado.getString("direccion_editorial"));
+                editorial.setNit(tablaResultado.getString("nit"));
+                editorial.setNombreEditorial(tablaResultado.getString("nombre_editorial"));
+                editorial.setTelefonoEditorial(tablaResultado.getString("telefono_editorial"));
+                editorial.setDireccionEditorial(tablaResultado.getString("direccion_editorial"));
             } else {
                 return null;
             }
         } catch (SQLException e) {
-            System.err.print("Error al buscar Cliente: " + e.getMessage());
+            System.err.print("Error al buscar Editorial: " + e.getMessage());
         }
         //retornamos el objeto
-        return cliente;
+        return editorial;
     }
 
     @Override

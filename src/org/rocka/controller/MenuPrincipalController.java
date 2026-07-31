@@ -6,14 +6,15 @@ import javafx.scene.control.Alert;
 import org.rocka.system.Main;
 
 //falta el extends initilize
-public class MenuPrincipalController {
+public class MenuPrincipalController  {
 
     @FXML
-    private void handleClientes() {
+    private void handleEditoriales() {
         try {
             Main.cambiarVista("/org/rocka/view/EditorialView.fxml");
         } catch (Exception e) {
-            mostrarError("Error al cargar la vista de clientes:\n" + e.getMessage());
+            mostrarError("Error al cargar la vista de editoriales:\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -37,6 +38,7 @@ public class MenuPrincipalController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+        
     }
 
 }

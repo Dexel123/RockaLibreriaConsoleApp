@@ -28,7 +28,7 @@ public class EditorialController {
     do {
         opcion = vista.mostrarMenu();
         
-        switch ( opcion){
+        switch (opcion){
             case 1:
                 
                 break;
@@ -42,6 +42,8 @@ public class EditorialController {
                     
                 
                 break;
+            default: 
+                throw new AssertionError();
         }
     }while(opcion != 4);
     
