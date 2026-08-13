@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rocka.controller.MenuPrincipalController">
     <top>
-        <Label text="Key Librería - Menú Principal" style="-fx-font-size: 24; -fx-font-weight: bold;" BorderPane.alignment="CENTER">
+        <Label text="Rocka Librería - Menú Principal" style="-fx-font-size: 24; -fx-font-weight: bold;" BorderPane.alignment="CENTER">
             <padding><Insets top="20" /></padding>
         </Label>
     </top>
@@ -17,6 +17,8 @@
             <padding><Insets top="30" right="40" bottom="30" left="40" /></padding>
             <Button text="Clientes" prefWidth="220" prefHeight="40" onAction="#handleClientes" />
             <Button text="Autores" prefWidth="220" prefHeight="40" onAction="#handleNoDisponible" />
+            <Button text="Clientes" prefWidth="220" prefHeight="40" onAction="#handleNoDisponible" />
+            <Button text="Autores" prefWidth="220" prefHeight="40" onAction="#handleAutores" />
             <Button text="Categorías" prefWidth="220" prefHeight="40" onAction="#handleNoDisponible" />
             <Button text="Editoriales" prefWidth="220" prefHeight="40" onAction="#handleNoDisponible" />
             <Button text="Salir" prefWidth="220" prefHeight="40" onAction="#handleSalir" />

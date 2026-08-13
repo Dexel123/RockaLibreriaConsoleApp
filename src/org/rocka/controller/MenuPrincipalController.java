@@ -1,3 +1,4 @@
+
 package org.rocka.controller;
 
 import javafx.application.Platform;
@@ -14,6 +15,12 @@ public class MenuPrincipalController {
             Main.cambiarVista("/org/rocka/view/ClienteView.fxml");
         } catch (Exception e) {
             mostrarError("Error al cargar la vista de clientes:\n" + e.getMessage());
+    private void handleAutores() {
+        try {
+            Main.cambiarVista("/org/rocka/view/AutoresView.fxml");
+        } catch (Exception e) {
+            mostrarError("Error al cargar la vista de AUTORES:\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 

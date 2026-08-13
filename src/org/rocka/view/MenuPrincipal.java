@@ -1,6 +1,7 @@
 package org.rocka.view;
 import java.util.Scanner;
 import org.rocka.controller.ClienteController;
+import org.rocka.controller.AutoresController;
 
 public class MenuPrincipal {
     Scanner leer = new Scanner(System.in);
@@ -25,6 +26,12 @@ public class MenuPrincipal {
                     break;
                 case 2:
                     System.out.println("Autor");
+                    AutoresConsoleView vistaAutores = new AutoresConsoleView();
+
+                    AutoresController controladorAutores = new AutoresController(vistaAutores);
+
+                    controladorAutores.iniciar();
+ 
                     break;
                 case 3:
                     System.out.println("Categoria");
