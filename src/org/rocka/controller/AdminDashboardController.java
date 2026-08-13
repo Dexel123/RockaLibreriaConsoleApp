@@ -60,7 +60,7 @@ public class AdminDashboardController implements Initializable {
         @FXML
     public void eventoAutor(ActionEvent evento) {
         try {
-            Main.cambiarEscena("/org/rocka/view/ClienteView.fxml");
+            Main.cambiarEscena("/org/rocka/view/AutoresView.fxml");
         } catch (IOException e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
