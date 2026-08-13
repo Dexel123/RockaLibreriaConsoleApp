@@ -15,6 +15,9 @@ public class MenuPrincipalController {
             Main.cambiarVista("/org/rocka/view/ClienteView.fxml");
         } catch (Exception e) {
             mostrarError("Error al cargar la vista de clientes:\n" + e.getMessage());
+        }}
+       
+    @FXML
     private void handleAutores() {
         try {
             Main.cambiarVista("/org/rocka/view/AutoresView.fxml");

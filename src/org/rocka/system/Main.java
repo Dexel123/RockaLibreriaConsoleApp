@@ -10,6 +10,25 @@ public class Main extends Application {
 
     private static Stage escenarioPrincipal;
 
+    @Override
+    public void start(Stage escenarioPrincipal) throws Exception {
+        this.escenarioPrincipal = escenarioPrincipal;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/rocka/view/MenuPrincipal.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        escenarioPrincipal.setTitle("Rocka Librería");
+        escenarioPrincipal.setScene(scene);
+        escenarioPrincipal.show();
+        Main.escenarioPrincipal = escenarioPrincipal;     
+        cambiarEscena("/org/rocka/view/InicioSesionView.fxml");
+    }
+
+    public static void cambiarVista(String fxmlPath) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
+        Parent root = loader.load();
+        escenarioPrincipal.setScene(new Scene(root));
+    }
+    
     public static void cambiarEscena(String rutaFXML) throws IOException {
         //Parent raiz = FXMLLoader.load(getClass().getResource(rutaFXML));
         Parent raiz = FXMLLoader.load(Main.class.getResource(rutaFXML));                
@@ -19,14 +38,8 @@ public class Main extends Application {
         escenarioPrincipal.centerOnScreen();
         escenarioPrincipal.show();        
     }
-
-    @Override
-    public void start(Stage escenarioPrincipal) throws Exception {
-        //convertir .fxml en nodo raiz
-        Main.escenarioPrincipal = escenarioPrincipal;     
-        cambiarEscena("/org/rocka/view/InicioSesionView.fxml");
-    }
-
+ 
+   
     public static void main(String[] args) {
         launch(args);
     }

@@ -36,7 +36,7 @@ public class AdminDashboardController implements Initializable {
     public void eventoSalir(ActionEvent evento) {
         try {
             Main.cambiarEscena("/org/rocka/view/InicioSesionView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }
@@ -45,7 +45,7 @@ public class AdminDashboardController implements Initializable {
     public void eventoCliente(ActionEvent evento) {
         try {
             Main.cambiarEscena("/org/rocka/view/ClienteView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }   
@@ -53,7 +53,7 @@ public class AdminDashboardController implements Initializable {
     public void eventoCategoria(ActionEvent evento) {
         try {
             Main.cambiarEscena("/org/rocka/view/ClienteView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }
@@ -61,7 +61,7 @@ public class AdminDashboardController implements Initializable {
     public void eventoAutor(ActionEvent evento) {
         try {
             Main.cambiarEscena("/org/rocka/view/AutoresView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }
@@ -69,7 +69,7 @@ public class AdminDashboardController implements Initializable {
     public void eventoEditorial(ActionEvent evento) {
         try {
             Main.cambiarEscena("/org/rocka/view/ClienteView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la escena: " + e.getMessage());
         }
     }

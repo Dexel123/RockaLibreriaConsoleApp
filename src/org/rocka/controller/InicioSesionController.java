@@ -68,7 +68,7 @@ public class InicioSesionController implements Initializable {
     public void eventoRegistrarse(ActionEvent evento){
         try {
             Main.cambiarEscena("/org/rocka/view/RegistrarUsuarioView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar registro: " + e.getMessage());
             lblMensaje.setText("Error interno");
         }
@@ -94,7 +94,7 @@ public class InicioSesionController implements Initializable {
         
         try {
             Main.cambiarEscena("/org/rocka/view/AdminDashboardView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar la vista:" + rutaFXML + " " + e.getMessage());
             lblMensaje.setText("Error interno");
         }

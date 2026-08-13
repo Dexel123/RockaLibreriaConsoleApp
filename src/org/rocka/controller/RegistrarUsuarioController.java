@@ -64,7 +64,7 @@ public class RegistrarUsuarioController implements Initializable {
         } catch (ValidacionException e) {
             mostrarAlerta(Alert.AlertType.WARNING, e.getMessage());
             lblMensaje.setText(e.getMessage());
-        } catch (IOException e){
+        } catch (Exception e){
             System.err.println("Error al volver al Login: " + e.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class RegistrarUsuarioController implements Initializable {
     public void eventoRegresar(ActionEvent evento){
          try {
             Main.cambiarEscena("/org/rocka/view/InicioSesionView.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al carger registro:  " +  e.getMessage());
             lblMensaje.setText("Error interno");
         }

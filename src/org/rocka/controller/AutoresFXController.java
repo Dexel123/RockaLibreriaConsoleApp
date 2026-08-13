@@ -130,7 +130,7 @@ private void handleGuardar() {
     @FXML
     private void handleVolver() {
         try {
-            Main.cambiarVista("/org/rocka/view/MenuPrincipal.fxml");
+            Main.cambiarVista("/org/rocka/view/AdminDashboardView.fxml");
         } catch (Exception e) {
             mostrarError("Error al volver al menú: " + e.getMessage());
         }
