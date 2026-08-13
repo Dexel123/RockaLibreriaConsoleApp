@@ -55,6 +55,7 @@ public class AutoresFXController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        configurarTabla();
         cargarTabla();
         seleccionarFila();
     }
@@ -87,34 +88,32 @@ public class AutoresFXController implements Initializable {
     }
 
     @FXML
-    private void handleGuardar() {
-        try {
-            if ( txtNombreAutor.getText().isEmpty()
-                    || txtNacionalidad.getText().isEmpty() || txtApellidoAutor.getText().isEmpty() || txtBiografia.getText().isEmpty()) {
-                mostrarError("Todos los campos son obligatorios.");
-                return;
-            }
-
-            Autores autor = new Autores();
-           
-            autor.setNombre_autor(txtNombreAutor.getText().trim());
-            autor.setNacionalidad(txtNacionalidad.getText().trim());
-            autor.setApellido_autor(txtApellidoAutor.getText().trim());
-            autor.setBiografia(txtBiografia.getText().trim());
-
-            if (autoresDAO.insertar(autor)) {
-                lblMensaje.setText("Autor registrado exitosamente.");
-                cargarTabla();
-                limpiarFormulario();
-            } else {
-                mostrarError("No se pudo registrar el autor.");
-            }
-        } catch (NumberFormatException e) {
-            mostrarError("El ID debe ser un número válido.");
-        } catch (Exception e) {
-            mostrarError("Error al guardar: " + e.getMessage());
-        }
+private void handleGuardar() {
+    if ( txtNombreAutor.getText().isEmpty()
+            || txtNacionalidad.getText().isEmpty() || txtApellidoAutor.getText().isEmpty() || txtBiografia.getText().isEmpty()) {
+        mostrarError("Todos los campos son obligatorios.");
+        return;
     }
+
+    try {
+        Autores autor = new Autores();
+
+        autor.setNombreAutor(txtNombreAutor.getText().trim());
+        autor.setNacionalidad(txtNacionalidad.getText().trim());
+        autor.setApellidoAutor(txtApellidoAutor.getText().trim());
+        autor.setBiografia(txtBiografia.getText().trim());
+
+        if (autoresDAO.insertar(autor)) {
+            lblMensaje.setText("Autor registrado exitosamente.");
+            cargarTabla();
+            limpiarFormulario();
+        } else {
+            mostrarError("No se pudo registrar el autor.");
+        }
+    } catch (Exception e) {
+        mostrarError("Error al guardar: " + e.getMessage());
+    }
+}
 
     @FXML
     private void handleLimpiar() {
