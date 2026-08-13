@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.rocka.dao.ClienteDAO;
 import org.rocka.dao.impl.ClienteDAOImpl;
 import org.rocka.model.Cliente;
@@ -30,15 +32,31 @@ public class ClienteFXController implements Initializable {
     @FXML
     private TableView<Cliente> tablaClientes;//Tabla de entidad: cliente
 
+    //columnas
+    @FXML TableColumn colCui;
+    @FXML TableColumn colNombre;
+    @FXML TableColumn colApellido;
+    @FXML TableColumn colCorreo;
+    
     private final ClienteDAO clienteDAO = new ClienteDAOImpl();
     private final ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();//Entidad:Cliente
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        configurarTabla();
         cargarTabla();
         seleccionarFila();
     }
-
+    
+private void configurarTabla() {
+        //CellValueFactory, PropertyValueFactory / Valor de fabrica de celda, propiedad de fabrica de celda 
+        colCui.setCellValueFactory(new PropertyValueFactory<Cliente, Long>("cui"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
+        colCorreo.setCellValueFactory(new PropertyValueFactory<Cliente, String>("correoElectronico"));
+    }
+    
+    
     private void cargarTabla() {
         listaClientes.setAll(clienteDAO.listarTodos());
         tablaClientes.setItems(listaClientes);

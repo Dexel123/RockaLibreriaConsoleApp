@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rocka.controller.MenuPrincipalController">
     <top>
-        <Label text="Rocka Librería - Menú Principal" style="-fx-font-size: 24; -fx-font-weight: bold;" BorderPane.alignment="CENTER">
+        <Label text="Key Librería - Menú Principal" style="-fx-font-size: 24; -fx-font-weight: bold;" BorderPane.alignment="CENTER">
             <padding><Insets top="20" /></padding>
         </Label>
     </top>
