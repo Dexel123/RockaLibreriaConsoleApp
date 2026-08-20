@@ -18,6 +18,15 @@ public class MenuPrincipalController {
     }
 
     @FXML
+    private void handleCategorias() {
+        try {
+            Main.cambiarVista("/org/rocka/view/FXML.fxml");
+        } catch (Exception e) {
+            mostrarError("Error al cargar la vista de categorías:\n" + e.getMessage());
+        }
+    }
+
+    @FXML
     private void handleNoDisponible() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Módulo no disponible");

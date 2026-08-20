@@ -1,6 +1,7 @@
 package org.rocka.system;
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,11 +17,11 @@ public class Main extends Application {
         Main.escenarioPrincipal = escenarioPrincipal;
         
         // Carga de la vista inicial desde el paquete org.rocka
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/rocka/view/FXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/rocka/view/MenuPrincipal.fxml"));
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        escenarioPrincipal.setTitle("Rocka Librería - Categorías");
+        escenarioPrincipal.setTitle("Rocka Librería - Menú Principal");
         escenarioPrincipal.setScene(scene);
         escenarioPrincipal.show();
     }

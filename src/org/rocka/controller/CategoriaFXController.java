@@ -25,6 +25,7 @@ public class CategoriaFXController implements Initializable {
     private Label lblMensaje;
     
 
+    @FXML
     private TableView<Categoria> tablaCategoria;//Tabla de entidad: Categoria
 
     private final CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
